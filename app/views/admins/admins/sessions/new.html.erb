@@ -1,0 +1,29 @@
+<h2>ログイン</h2>
+
+<% resource = Admin.new unless resource %>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+  <div class="field">
+    <%= f.label :名前 %><br />
+    <%= f.password_field :name, autocomplete: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :パスワード %><br />
+    <%= f.password_field :password, autocomplete: "off" %>
+  </div>
+
+  <% if devise_mapping.rememberable? -%>
+    <div class="field">
+      <%= f.check_box :remember_me %>
+      <%= f.label :remember_me %>
+    </div>
+  <% end -%>
+
+  <div class="actions">
+    <%= f.submit "ログイン" %>
+  </div>
+    <br>登録がお済みでない方は<%= link_to 'こちら', new_admin_registration_path %>
+  <% end %>
+
+

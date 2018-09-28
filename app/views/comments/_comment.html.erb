@@ -1,0 +1,35 @@
+<div id="comment_<%= comment.id %>" class="comment">
+ <div class="comment-content">
+ <div class="comment-user-info">
+ <%= link_to (user_path(comment.user)) do %>
+ <% if comment.user.avatar.present? %>
+ <%= image_tag comment.user.avatar_url(:thumb) %>
+ <% else %>
+
+ <% end %>
+ <% end %>
+
+ <%= link_to (user_path(comment.user)),class:"#{'postuser' if comment.post.user_id == comment.user_id}" do %>
+ <%= comment.user.name %>
+ <% end %>
+ </div>
+ <% if comment.parent_id.present? %>
+ <p class="reply-user">
+<%=link_to ">>#{comment.parent.user.name}さん",anchor:"comment_#{comment.parent.id }" %>
+</p>
+ <% end %>
+<p><%= simple_format(comment.content) %></p>
+<div class ="comment-info">
+ <p class="comment-date">
+<%= comment.created_at.to_s(:datetime) %>に投稿 
+ <% if user_signed_in? %>
+ <% if current_user.id == comment.user_id %>
+<%= link_to "削除", [post, comment], method: :delete, class: 'delete-comment-link', data:{confirm:"Are your sure?"}, remote: true %>
+ <% else %>
+ <%= link_to "返信", reply_post_comment_path(post ,comment), class: 'reply-comment-link', remote: true %>
+ <% end %>
+ <% end %>
+</p>
+ </div>
+</div>
+</div>

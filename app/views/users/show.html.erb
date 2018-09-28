@@ -1,0 +1,65 @@
+<h2><font size="5">My page</font></h2>
+
+<%= link_to 'ホームへ', posts_path %>
+<%= render 'follow_form' %>
+<%= render 'stats' %>
+
+<h1><font size="5">※即退会します</font></h1>
+<%= link_to '退会する',user_path(@user_id),method: :delete, "date-confirm" => "本当に削除しますか?",class:"destroy_#{@user_id}"%></td>>
+
+<div class="container">
+	<table class="table table-striped">
+		<thead>
+		          <tr>
+						    <th></th>
+						    <th></th>
+						    <th></th>
+				  </tr>
+		</thead>
+
+		<tbody>
+				<tr>
+					<% if @user == current_user %>
+					<td><%= link_to '変更', edit_user_path %></td>
+					<% end %>
+					<td><% @user.name %></td>
+					<td><% @user.intoroduce %></td>
+				</tr>
+		</tbody>
+</div>
+
+<div class="container">
+
+
+      	<table class="table table-striped">
+
+            <thead>
+		          <tr>
+						    <th></th>
+						    <th></th>
+						    <th　style="width:10%}"></th>
+						    <th　style="width:10%}"></th>
+						    <th></th>
+						    <th></th>
+				  </tr>
+			</thead>
+
+			<tbody>
+				<% @posts.each do |post| %>
+				<tr>
+							<td><%= attachment_image_tag post.user, :avatar, :fill, 50, 50, format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no-image.jpg" %></td>
+							<td><%= post.user.name %></td>
+							<td><%= post.content %></td>
+							<td ><% post.images.each do |i| %> <img src=<%= "#{i}" %>><% end %></td>
+							<td><%= render "likes/like", post: post %></td>
+							<% if post.user == current_user %>
+							<td><%= link_to "Destroy", post_path(post.id),method: :delete, "date-confirm" => "本当に削除しますか?",class:"destroy_#{post.id}"%></td>
+							<% end %>
+				</tr>
+				<% end %>
+			</tbody>
+	  	</table>
+</div>
+
+
+

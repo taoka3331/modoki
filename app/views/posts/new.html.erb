@@ -1,0 +1,19 @@
+<h2>つぶやこう！！！！！！</h2>
+
+<% @post.errors.full_messages.each do |message| %>
+	<div class="form-error">
+		<%= message %>
+	</div>
+<% end %>
+
+<%= form_for(@post) do |f| %>
+
+<h1>内容</h1>
+<%= f.text_field :content,size:'30x30', class:"post_content"  %>
+<%= f.file_field :images, id: :post_image, multiple: true %>
+<%= f.submit "投稿する" %>
+
+<% end %>
+
+
+

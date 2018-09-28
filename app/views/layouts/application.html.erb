@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Twitter</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+
+<header>
+  <nav>
+
+    <% if user_signed_in? %>
+    <div class="notification clearfix">
+      <div class=  "notifications"><%= render 'notifications/notification_dropdown' %></div>
+      <div class= "follow_notifications"><%= render 'follow_notifications/notification_dropdown' %></div>
+      <div class= "logout"><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></div>
+      <div class= "tweet"><%= link_to 'つぶやく', new_post_path %></div>
+      <div class= "home"><%= link_to 'my page', user_path(current_user) %></div>
+      <div class= "headline"> MODOKI☆彡</div>
+    </div>
+    <% else %>
+      <%= link_to 'サインアップ', new_user_registration_path %>
+      <%= link_to 'ログイン', new_user_session_path %>
+      <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "glyphicon glyphicon-log-out" %>
+    <% end %>
+  </nav>
+</header>
+    <%= yield %>
+  </body>
+</html>
